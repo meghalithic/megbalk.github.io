@@ -1,0 +1,380 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* CSS RESET */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+*/
+/* remember to highlight inserts somehow! */
+
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* END CSS RESET */
+
+span.tooltips {
+  position: relative;
+  display: inline;
+}
+span.tooltips span.tip {
+  position: absolute;
+  min-width:100px;
+  color: #FFFFFF;
+  background: #8F8F8F;
+  line-height: 10px;
+  text-align: center;
+  visibility: hidden;
+  border-radius: 2px;
+  font-size:10px;
+  font-style:normal;
+  padding:7px;
+}
+span.tooltips span.tip:after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; height: 0;
+  border-bottom: 8px solid #8F8F8F;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+span:hover.tooltips span.tip {
+  visibility: visible;
+  opacity: 0.9;
+  top: 25px;
+  left: 50%;
+  transform:translateX(-50%);
+  -ms-transform: translate(-50%x,0px); /* IE 9 */
+  -webkit-transform: translate(-50%,0px); /* Safari */
+  z-index: 999;
+}
+
+html{
+	overflow-y:scroll;
+}
+
+body{
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+	font-family: 'Bitter', serif;
+	font-size:48px;
+	margin: 20px 0px;
+	clear:both;
+}
+
+h3{
+	font-family: 'Bitter', serif;
+	font-size:24px;
+	margin-bottom:10px;
+}
+
+p{
+	margin-bottom:10px;
+	line-height:120%;
+}
+
+a{
+	text-decoration:none;
+}
+
+h1 a{
+	color:black;
+}
+
+#disclaimer{
+	font-size:75%;
+	margin: 10px 0px;
+}
+
+#cover{
+	position:absolute;
+	top:0;
+	left:0;
+	background:rgba(0,0,0,0.6);
+	z-index:5;
+	width:100%;
+	height:200%;
+	display:none; /* hide until the sign in stuff works */
+}
+
+#summary{
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:50px;
+	padding:20px;
+	height:380px;
+	width:400px;
+	position:relative;
+	z-index:10;
+	background-color:#FFF;
+	border:5px solid #000;
+	display:none; /* hide until the sign in stuff works */
+}
+
+#content{
+	position:static;
+	width:900px;
+	margin-left:auto;
+	margin-right:auto;	
+}
+
+#signedIn{
+	float:right;
+	visibility:hidden;
+	font-size:12px;
+	color:#c9c9c9;
+	margin-top:11px;
+	margin-right:20px;
+	font-style:italic;
+}
+
+#signOut{
+	font-style:normal;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+nav{
+	float:right;
+}
+
+nav span{
+	float:left;
+	display:block;
+	padding:10px;
+	font-size:14px;
+	text-decoration:none;
+	color:#ACACAC;
+	cursor:pointer;
+}
+
+nav span:hover{
+	color:#969696;
+}
+
+span.active, span.active:hover{
+	background-color:#666;
+	color:#FFF;
+}
+
+.panel{
+	display:none;
+	clear:both;
+	background:#666;
+	color:#fff;
+	padding:50px;
+	line-height:120%;
+}
+
+.panel a, .panel a:visited {
+	color:#FFF;
+	text-decoration:underline;
+}
+
+.panel a:hover, .panel a:active{
+	color:#FFF;
+	text-decoration:none;
+}
+
+
+#canvasWrap{
+	float:right;
+	margin-bottom:15px;
+}
+
+#description{
+	float:left;
+	width:300px;
+	overflow:hidden;
+	position:relative;
+}
+
+#buttons{
+	position:absolute;
+	bottom:0;
+	width:100%;
+	text-align:right;
+	font-size:12px;
+}
+
+#prev{
+	float:left;
+}
+
+#next{
+	float:right;
+}
+
+#buttons p{
+	clear:both;
+	padding:5px 0;
+}
+
+button{
+	-moz-box-shadow: 0px 1px 2px 0px #9fb4f2;
+	-webkit-box-shadow: 0px 1px 2px 0px #9fb4f2;
+	box-shadow: 0px 1px 2px 0px #9fb4f2;
+	background-color:#F89938;
+	border-radius:5px;
+	border:1px solid #000;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-size:16px;
+	padding:4px 15px 6px;
+	text-decoration:none;
+}
+button:hover {
+	background-color:#ffc182;
+}
+button:active {
+	background-color:#ff8100;
+	position:relative;
+	top:1px;
+	left:1px;
+}
+button:disabled {
+	background-color:#CCC;
+	color:#FFF;
+	border:1px solid #999;
+}
+
+#steps{
+	position:relative;
+	width:10000px;
+	height:100%;
+}
+
+.step{
+	position:relative;
+	float:left;
+	width:300px;
+	height:100%;
+	margin-right:20px;
+}
+
+.stepText{
+	height:139px;
+}
+
+.stepDesc{
+	overflow-y:auto;	
+}
+
+.count{
+	margin:5px 15px;
+}
+
+#form{
+	display:none;
+}
+
+.diagram{
+	position:absolute;
+	width:200px;
+	height:150px;
+	bottom:70px;
+	left:50%;
+	margin-left:-100px;
+	z-index:3;
+	background-size:100%;
+	background-color:'white';
+	background-repeat:no-repeat;
+	background-position:center;
+	cursor:zoom-in;
+}
+
+#expanded{
+	display:none;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:50px;
+	width:600px;
+	position:relative;
+	z-index:10;
+	background-color:#FFF;
+	border:3px solid #000;
+	cursor:zoom-out;
+}
+
+#close{
+	font-weight:bold;
+	float:right;
+	cursor:pointer;
+}
+
+.help{
+	position:absolute;
+	bottom:0;
+	right:0;
+	cursor:zoom-in;
+}
+
+.link, a, a:active, a:visited {
+	color: #333;
+	cursor:pointer;
+	text-decoration:none;
+}
+
+.link:hover, .link:active, a:hover, a:active {
+	text-decoration:underline;
+}
+
+footer {
+	clear:both;
+	border-top:solid 1px #666;
+	padding:15px;
+	color: #666;
+	font-size:12px;
+	margin-top:20px;
+}

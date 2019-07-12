@@ -1,0 +1,41 @@
+[
+    {
+        "form": "https://docs.google.com/forms/d/e/1FAIpQLSciOmoKVLoKiaJydm1ROLvT9zs2yzpeWUt-ts4xtmQuUHqXrg/formResponse",
+        "page": "Project Title",
+        "about": "This is the about tab.",
+        "contact": "This is the contact tab",
+        "repeat": "repeat"
+    },
+    {
+        "description": "",
+        "title": "image",
+        "distance": "false",
+        "type": "bgimg",
+        "label": "image",
+        "name": "entry.175291341"
+    },
+    {
+        "description": "",
+        "title": "type",
+        "distance": "false",
+        "type": "line",
+        "label": "type",
+        "name": "entry.1651341220"
+    },
+    {
+        "description": "",
+        "title": "certainty",
+        "distance": "false",
+        "type": "line",
+        "label": "certainty",
+        "name": "entry.421518890"
+    },
+    {
+        "description": "",
+        "title": "diagensis",
+        "distance": "false",
+        "type": "count",
+        "label": "diagensis",
+        "name": "entry.2096206491"
+    }
+]

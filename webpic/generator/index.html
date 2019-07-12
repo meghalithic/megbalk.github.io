@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html lang="en" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en" class="lt-ie9"> <![endif]-->
+<!--[if IE 9]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>webpic Generator</title>
+    <style type="text/css">
+
+.cf:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+* html .cf { zoom: 1; }
+*:first-child+html .cf { zoom: 1; }
+
+html { margin: 0; padding: 0; }
+body { font-size: 100%; margin: 0; padding: 1.75em; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+h1 { font-size: 1.75em; margin: 0 0 0.6em 0; }
+
+a { color: #2996cc; }
+a:hover { text-decoration: none; }
+
+p { line-height: 1.5em; }
+.small { color: #666; font-size: 0.875em; }
+.large { font-size: 1.25em; }
+
+/**
+ * Nestable
+ */
+
+.dd { position: relative; display: block; margin: 0; padding: 0; max-width: 600px; list-style: none; font-size: 13px; line-height: 20px; }
+
+.dd-list { display: block; position: relative; margin: 0; padding: 0; list-style: none; }
+.dd-list .dd-list { padding-left: 30px; }
+.dd-collapsed .dd-list { display: none; }
+
+.dd-item,
+.dd-empty,
+.dd-placeholder { display: block; position: relative; margin: 0; padding: 0; min-height: 20px; font-size: 13px; line-height: 20px; }
+
+.dd-handle { display: block; height: 30px; margin: 5px 0; padding: 5px 10px; color: #333; text-decoration: none; font-weight: bold; border: 1px solid #ccc;
+    background: #fafafa;
+    background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
+    background:    -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
+    background:         linear-gradient(top, #fafafa 0%, #eee 100%);
+    -webkit-border-radius: 3px;
+            border-radius: 3px;
+    box-sizing: border-box; -moz-box-sizing: border-box;
+}
+.dd-handle:hover { color: #2ea8e5; background: #fff; }
+
+.dd-item > button { display: block; position: relative; cursor: pointer; float: left; width: 25px; height: 20px; margin: 5px 0; padding: 0; text-indent: 100%; white-space: nowrap; overflow: hidden; border: 0; background: transparent; font-size: 12px; line-height: 1; text-align: center; font-weight: bold; }
+.dd-item > button:before { content: '+'; display: block; position: absolute; width: 100%; text-align: center; text-indent: 0; }
+.dd-item > button[data-action="collapse"]:before { content: '-'; }
+
+.dd-placeholder,
+.dd-empty { margin: 5px 0; padding: 0; min-height: 30px; background: #f2fbff; border: 1px dashed #b6bcbf; box-sizing: border-box; -moz-box-sizing: border-box; }
+.dd-empty { border: 1px dashed #bbb; min-height: 100px; background-color: #e5e5e5;
+    background-image: -webkit-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff),
+                      -webkit-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff);
+    background-image:    -moz-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff),
+                         -moz-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff);
+    background-image:         linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff),
+                              linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+}
+
+.dd-dragel { position: absolute; pointer-events: none; z-index: 9999; }
+.dd-dragel > .dd-item .dd-handle { margin-top: 0; }
+.dd-dragel .dd-handle {
+    -webkit-box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
+            box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
+}
+
+/**
+ * Nestable Extras
+ */
+
+#nestable-menu { padding: 0; margin: 20px 0; }
+
+#items-output { width: 100%; height: 7em; font-size: 0.75em; line-height: 1.333333em; font-family: Consolas, monospace; padding: 5px; box-sizing: border-box; -moz-box-sizing: border-box; }
+
+@media only screen and (min-width: 700px) {
+
+    .dd { float: left; width: 48%; }
+    .dd + .dd { margin-left: 2%; }
+
+}
+
+.dd-hover > .dd-handle { background: #2ea8e5 !important; }
+
+/**
+ * Nestable Draggable Handles
+ */
+
+.dd3-content { display: block; margin: 5px 0; padding: 5px 10px 5px 40px; color: #333; text-decoration: none; font-weight: bold; border: 1px solid #ccc;
+    background: #fafafa;
+    background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
+    background:    -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
+    background:         linear-gradient(top, #fafafa 0%, #eee 100%);
+    -webkit-border-radius: 3px;
+            border-radius: 3px;
+    box-sizing: border-box; -moz-box-sizing: border-box;
+}
+.dd3-content:hover { color: #2ea8e5; background: #fff; }
+
+.dd-dragel > .dd3-item > .dd3-content { margin: 0; }
+
+.dd3-item > button { margin-left: 30px; }
+
+.dd3-handle { position: absolute; margin: 0; left: 0; top: 0; cursor: pointer; width: 30px; text-indent: 100%; white-space: nowrap; overflow: hidden;
+    border: 1px solid #aaa;
+    background: #ddd;
+    background: -webkit-linear-gradient(top, #ddd 0%, #bbb 100%);
+    background:    -moz-linear-gradient(top, #ddd 0%, #bbb 100%);
+    background:         linear-gradient(top, #ddd 0%, #bbb 100%);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.dd3-handle:before { content: '='; display: block; position: absolute; left: 0; top: 3px; width: 100%; text-align: center; text-indent: 0; color: #fff; font-size: 20px; font-weight: normal; }
+.dd3-handle:hover { background: #ddd; }
+
+/**
+ * Page Style
+ */
+
+.cf { display: block; clear: both; padding: 30px 0; width: 100%; border: 0; border-top: 2px solid #ddd; }
+
+.howTo {
+	counter-reset:step;
+	list-style-type:none;
+	-webkit-padding-start:20px;
+}
+
+.howTo div.step {
+	position:relative;
+	padding-left:60px;
+	padding-bottom:40px;
+}
+
+.howTo div.step:before{
+	content:counter(step);
+	counter-increment:step;
+	position:absolute;
+	left:0;
+	top:0;
+	font:bold 80px/.9 Sans-Serif;
+}
+
+#items label {
+	display:block;
+}
+
+    </style>
+</head>
+<body>
+
+    <h1>Web Applet Generator</h1>
+    <p>This site allows you to customize the steps for a webpic project that processes images for distance, point position, and count data.  To return to setup instructions, click <a href="https://github.com/lucymchang/webpic/wiki/Setup">here</a>.</p>
+    <p><strong>A working example can be found here: <a href="https://www.ocf.berkeley.edu/~luchang/webpic/example">Example</a>.</strong></p>
+    <p><strong>View the form that generated the example page: <a href="https://docs.google.com/a/berkeley.edu/forms/d/1gIQgFDxJWClwS8n9Yjv_fG5S5OrcoNkDJU0fkeDgEv8/viewform">Google Form</a>.</strong><br>
+    <strong>View the real-time results of the example page: <a href="https://docs.google.com/spreadsheets/d/1ag88baUw2dVWqyNwnoD0wjA1gOGlFA1Dbeg4Av3mjCE/edit?usp=sharing">Google Sheet</a>.</strong></p>
+    <div class="howTo">
+  	<div class="step">
+        <p><strong>Submit your Form to the generator</strong></p>
+        <p>Paste the copied page source from your form (see instructions <a href="https://github.com/lucymchang/webpic/wiki/Setup#step-2-customize-steps-using-the-webpic-generator">here</a>) into the box below and click "Submit Source".</p>
+        <textarea rows="4" cols="30" id="formSource" placeholder="Paste Google Forms Source"></textarea><br />
+        <button onClick="loadItems()">Submit Source</button>
+    </div>
+    <div class="step">
+        <p>Drag and drop each item below into the order you would like the workflow to proceed.  Points may also be nested hierarchically under lines - this will constrain the placement of the point to that line.</p>
+        <p>Each item contains the following options:</p>
+        <ul>
+            <li><strong><em>Title</em></strong> This field populates the name of your step ("Step #. {Title}").</li>
+            <li><strong><em>Type of data (required)</em></strong> This field dictates what data will be collected.  See step 1 of these instructions for brief descriptions of available options.</li>
+            <li><strong><em>Description or instructions for this step</em></strong> This text appears below the title of the step and serves as a place to describe the task.</li>
+            <li><strong><em>Would you like a distance returned using this?</em></strong> (option appears for steps of type Line or Point) For lines and points, you may choose to collect a distance along the length of the line or from the point to either another point or from the START or END of a line.</li>
+        </ul>
+    
+        <menu id="nestable-menu">
+            <button type="button" data-action="expand-all">Expand All</button>
+            <button type="button" data-action="collapse-all">Collapse All</button>
+        </menu>
+        <div class="cf">    
+            <div class="dd" id="items">
+                <ol class="dd-list">
+                </ol>
+            </div>
+        </div>
+        
+    </div>
+    <div class="step">
+        <p><strong>Serialised Output</strong></p>
+        <p>Copy the text below and use a text editor (like TextEdit or Notepad) to save as a file called <strong>map.json</strong>.</p>
+    
+        <textarea id="items-output"></textarea>
+    </div>
+	</div>
+    <p class="small"><a href="https://github.com/dbushell/Nestable" target="_blank">Nestable.js</a> created by <a href="http://dbushell.com/" target="_blank">David Bushell</a> | Heavily modified by Lucy Chang</p>
+
+<script src="jquery.min.js"></script>
+<script src="jquery.nestable.js"></script>
+<script src="generator.js"></script>
+<script>
+var updateOutput = function(e)
+{
+	var list   = e.length ? e : $(e.target),
+		output = list.data('output');
+	if (window.JSON) {
+		output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+	} else {
+		output.val('JSON browser support required.');
+	}
+};
+
+$(document).ready(function()
+{
+
+    // activate Nestable for list 1
+    $('.dd').nestable({
+        maxDepth: 2
+    }).data('output', $('#items-output'))
+	.on('change', updateOutput);
+
+    /* output initial serialised data
+    updateOutput($('.dd'));*/
+
+    $('#nestable-menu').on('click', function(e)
+    {
+        var target = $(e.target),
+            action = target.data('action');
+        if (action === 'expand-all') {
+            $('.dd').nestable('expandAll');
+        }
+        if (action === 'collapse-all') {
+            $('.dd').nestable('collapseAll');
+        }
+    });
+
+});
+</script>
+</body>
+</html>
