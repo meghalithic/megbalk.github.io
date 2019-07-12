@@ -84,7 +84,7 @@ function loadFirstImage(responseText)
 
 	loadImageToCanvas(imgURL);
 
-	document.querySelector('input[name = "image"]').value = imgFileName;
+	document.querySelector('input[name = "Image"]').value = imgFileName;
 	
 	next = document.getElementById('next');
 	next.disabled = (images.find(hasNextImage)) ? false : true;
@@ -148,7 +148,7 @@ function loadImage()
 	imgFileName = imageToLoad.name;
 
 	loadImageToCanvas(imageURL);
-	document.querySelector('input[name = "image"]').value = imgFileName;
+	document.querySelector('input[name = "Image"]').value = imgFileName;
 
 	return true;
 }
