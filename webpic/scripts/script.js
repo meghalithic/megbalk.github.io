@@ -158,7 +158,7 @@ window.onload = function()
 	// Handle clicking the radio buttons
 	$(document).ready(function(){
 		$('input[type=radio]').click(function(){
-			if (document.querySelector('input[name="type"]:checked').value == "DraggedTooth")
+			if (document.querySelector('input[name="Shark_Bite_Type"]:checked').value == "Dragged Tooth")
 			{
 				$('#draggedToothType').show();
 			}
