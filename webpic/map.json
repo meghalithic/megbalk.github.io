@@ -16,7 +16,7 @@
     },
     {
         "description": "",
-        "title": "Shark Bite Type",
+        "title": "Shark_Bite_Type",
         "distance": "false",
         "type": "line",
         "label": "Shark Bite Type",
@@ -24,7 +24,7 @@
     },
     {
         "description": "",
-        "title": "Type of Dragged Tooth Mark",
+        "title": "Type_of_Dragged_Tooth_Mark",
         "distance": "false",
         "type": "line",
         "label": "Type of Dragged Tooth Mark",
@@ -32,7 +32,7 @@
     },
     {
         "description": "",
-        "title": "Certainty of Identification",
+        "title": "Certainty_of_Identification",
         "distance": "false",
         "type": "point",
         "label": "Certainty of Identification",
@@ -40,7 +40,7 @@
     },
     {
         "description": "",
-        "title": "Degree of Diagenesis",
+        "title": "Degree_of_Diagenesis",
         "distance": "false",
         "type": "count",
         "label": "Degree of Diagenesis",
