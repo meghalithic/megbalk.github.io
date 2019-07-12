@@ -1,1 +1,49 @@
-[{"form":"https://docs.google.com/forms/d/e/1FAIpQLSdFFN-lFYjogffBEGoHbHD3QKfdVP4RXbEJA3h7I-qe1VniRw/formResponse","page":"Project Title","about":"About Tab","contact":"Contact Tab","repeat":"repeat"},{"description":"","title":"Image","distance":"false","type":"bgimg","label":"Image","name":"entry.370704339"},{"description":"","title":"Shark Bite Type","distance":"false","type":"line","label":"Shark Bite Type","name":"entry.1234232450"},{"description":"","title":"Type of Dragged Tooth Mark","distance":"false","type":"line","label":"Type of Dragged Tooth Mark","name":"entry.611523168"},{"description":"","title":"Certainty of Identification","distance":"false","type":"point","label":"Certainty of Identification","name":"entry.2028586426"},{"description":"","title":"Degree of Diagenesis","distance":"false","type":"count","label":"Degree of Diagenesis","name":"entry.711358401"}]
+[
+    {
+        "form": "https://docs.google.com/forms/d/e/1FAIpQLSdFFN-lFYjogffBEGoHbHD3QKfdVP4RXbEJA3h7I-qe1VniRw/formResponse",
+        "page": "Project Title",
+        "about": "About Tab",
+        "contact": "Contact Tab",
+        "repeat": "repeat"
+    },
+    {
+        "description": "",
+        "title": "Image",
+        "distance": "false",
+        "type": "bgimg",
+        "label": "Image",
+        "name": "entry.370704339"
+    },
+    {
+        "description": "",
+        "title": "Shark Bite Type",
+        "distance": "false",
+        "type": "line",
+        "label": "Shark Bite Type",
+        "name": "entry.1234232450"
+    },
+    {
+        "description": "",
+        "title": "Type of Dragged Tooth Mark",
+        "distance": "false",
+        "type": "line",
+        "label": "Type of Dragged Tooth Mark",
+        "name": "entry.611523168"
+    },
+    {
+        "description": "",
+        "title": "Certainty of Identification",
+        "distance": "false",
+        "type": "point",
+        "label": "Certainty of Identification",
+        "name": "entry.2028586426"
+    },
+    {
+        "description": "",
+        "title": "Degree of Diagenesis",
+        "distance": "false",
+        "type": "count",
+        "label": "Degree of Diagenesis",
+        "name": "entry.711358401"
+    }
+]
