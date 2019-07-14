@@ -9,40 +9,30 @@
     {
         "description": "",
         "title": "Image",
-        "distance": "false",
-        "type": "bgimg",
         "label": "Image",
         "name": "entry.370704339"
     },
     {
         "description": "",
         "title": "Shark_Bite_Type",
-        "distance": "false",
-        "type": "line",
         "label": "Shark Bite Type",
         "name": "entry.1234232450"
     },
     {
         "description": "",
         "title": "Type_of_Dragged_Tooth_Mark",
-        "distance": "false",
-        "type": "line",
         "label": "Type of Dragged Tooth Mark",
         "name": "entry.611523168"
     },
     {
         "description": "",
         "title": "Certainty_of_Identification",
-        "distance": "false",
-        "type": "point",
         "label": "Certainty of Identification",
         "name": "entry.2028586426"
     },
     {
         "description": "",
         "title": "Degree_of_Diagenesis",
-        "distance": "false",
-        "type": "count",
         "label": "Degree of Diagenesis",
         "name": "entry.711358401"
     }
