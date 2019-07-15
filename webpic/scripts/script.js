@@ -7,8 +7,7 @@
 
 //fetch('').then(function(response)
 
-var imagesURL = "https://vk4ut.github.io/webpic/";
-
+var imagesURL = "https://ben.weber.id.au/bitephotos/";
 
 // No need to change the stuff below this line. Maybe.
 var canvas = this.__canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
@@ -45,7 +44,7 @@ var userName = 'NA';
 // Get list of images and loads first one 
 function getImageListAndLoadFirstImage()
 {
-	fetch(imagesURL + "images.list")
+	fetch("https://megbalk.github.io/webpic/images.list")
 	.then((response) => response.text())
 	.then((responseText) => {
 		loadFirstImage(responseText)
@@ -65,13 +64,15 @@ function loadFirstImage(responseText)
 			// Last item, don't include comma
 			newJson += "{\"name\": \"" + line + "\",";
 			newJson += "\"viewed\": false,";
-			newJson += "\"download_url\": \"images/" + line + "\"}";
+			//newJson += "\"download_url\": \"images/" + line + "\"}";
+			newJson += "\"download_url\": \"" + imagesURL + line.trim() + "\"}";
 		} else
 		{
 			// Not last item, include comma
 			newJson += "{\"name\": \"" + line + "\",";
 			newJson += "\"viewed\": false,";
-			newJson += "\"download_url\": \"images/" + line + "\"},";
+			//newJson += "\"download_url\": \"images/" + line + "\"},";
+			newJson += "\"download_url\": \"" + imagesURL + line.trim() + "\"},";
 		}
 	});
 
@@ -212,43 +213,24 @@ window.onload = function()
 	$.when($.getJSON("map.json", function(json) {
 		map = unnest(json,false);
 		mapBuild = unnest(json,true)
-		console.log(map); // this will show the info it in firebug console
 		})
 	).then(
 	 	function(){
 			document.title = pageName;
 			$('h1').append('<a href="/">' + pageName + '</a>');
 
-			switch(enterer)
-			{
-				case 'textbox':
-					$('#signin').append('<p>Sign in to get started >></p><form><input type="text" id="identifier" /><input type="button" value="Submit" id="identifier-button" /></form><p id="disclaimer">Signing in is required.  This serves only to assign unique identifiers for each data enterer.  Absolutely no personal information will be stored for any other purpose or distributed.</p>');					
-					$('#identifier').keypress(function(e){
-						if(e.which == 13){
-							userName = userID = $('#identifier').val();
-							moveOn();
-						}
-					});
-					$('#identifier-button').click(function(){
-						userName = userID = $('#identifier').val();
-						moveOn();
-					});
-					break;
+			enterer = prompt("What's your name?");
 
-				default:
-					moveOn(); // just skip over the overlay for time's sake
-					$('#signin').append("<span class='link' onclick='moveOn();'>Let's get started >></a>");
-					$('#signin').click(function()
-					{
-						moveOn();
-					});
-			}
+			$('#signedIn').css('visibility','visible');
+			$('#signedIn').append('<p> Reviewing as: ' + enterer + '</p>');
+
+			document.querySelector('input[name = "Name"]').value = enterer;
 
 			for(var i=0; i<map.length; i++){
 				$('#measurements').append('<input type="text" name="' + map[i].name + '" value="" class="ss-q-short" dir="auto" aria-label="' + map[i].label + '" title="">')
 			};
 
-			$('#measurements').attr('action',formName);
+			$('#measurements').attr('action', formName);
 
 			// fill in about tab, contact tab, and project title
 			$('#panel1').html('<p>' + about + '</p>');
@@ -268,31 +250,14 @@ function nextstep()
 {
 	// Validate form
 
-	document.querySelector('input[name = "' + map[0].name + '"]').value = document.querySelector('input[name="' + map[0].title + '"]').value;
+	document.querySelector('input[name = "' + map[0].name + '"]').value = document.querySelector('input[name="' + map[0].title + '"]').value || "Unknown image";
 
 	for(var i=1; i<map.length; i++)
 	{
-		
-		value1 = document.querySelector('input[name="' + map[i].title + '"]:checked').value;
-		document.querySelector('input[name = "' + map[i].name + '"]').value = value1;
+		value1 = $('input[name="' + map[i].title + '"]:checked').val() || "No response provided";
+		$('input[name="' + map[i].name + '"]').val(value1);
+		//document.querySelector('input[name = "' + map[i].name + '"]').value = value1;
 		$('input[name=' + map[i].title + ']').attr('checked',false);
-		/*
-		switch(map[i].title)
-		{
-			case "type":
-				document.querySelector(map[i].name).value = document.querySelector('input[name="' + map[i].title + '"]:checked').value;
-			break;
-
-			case "certainty":
-				document.querySelector(map[i].name).value = document.querySelector('input[name="' + map[i].title + '"]:checked').value;
-				break;
-
-			case "diagensis":
-				document.querySelector(map[i].name).value = document.querySelector('input[name="' + map[i].title + '"]:checked').value;
-			break;
-
-		}
-		*/
 
 	};
 
@@ -300,7 +265,7 @@ function nextstep()
 
 	nextImage = images.find(getNextImage);
 
-	loadImageToCanvas(nextImage.download_url);
+	loadImageToCanvas(nextImage.download_url);	
 	document.querySelector('input[name = "image"]').value = nextImage.name;
 
 	next = document.getElementById('next');
@@ -412,18 +377,6 @@ $('nav > span').click(function(){
 	);
 });
 
-function moveOn()
-{
-	if(userName !== 'NA')
-	{
-		$('#signedIn').css('visibility','visible');
-		$('#signOut').html(userName);
-	}
-
-	$('#summary').hide();
-	$('#cover').fadeOut();
-}
-
 function renderButton()
 {
 	gapi.signin2.render('my-signin2', {
@@ -433,23 +386,3 @@ function renderButton()
 		'onsuccess': onSuccess
 	});
 };
-
-function onSuccess(googleUser)
-{
-  var profile = googleUser.getBasicProfile();
-  userID = profile.getEmail();
-  userName = profile.getName();
-  userId = profile.getId(); // Do not send to your backend! Use an ID token instead.
-  userImg = profile.getImageUrl();
-  moveOn();
-}
-
-function signOut()
-{
-	userID = userName = 'NA';
-
-	$('#signedIn').css('visibility','hidden');
-	$('#summary').show();
-	$('#cover').fadeIn()
-
-}
