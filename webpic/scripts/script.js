@@ -7,8 +7,7 @@
 
 //fetch('').then(function(response)
 
-var imagesURL = "https://megbalk.github.io/webpic/";
-
+var imagesURL = "https://ben.weber.id.au/bitephotos/";
 
 // No need to change the stuff below this line. Maybe.
 var canvas = this.__canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
@@ -45,7 +44,7 @@ var userName = 'NA';
 // Get list of images and loads first one 
 function getImageListAndLoadFirstImage()
 {
-	fetch(imagesURL + "images.list")
+	fetch("https://megbalk.github.io/webpic/images.list")
 	.then((response) => response.text())
 	.then((responseText) => {
 		loadFirstImage(responseText)
@@ -66,14 +65,14 @@ function loadFirstImage(responseText)
 			newJson += "{\"name\": \"" + line + "\",";
 			newJson += "\"viewed\": false,";
 			//newJson += "\"download_url\": \"images/" + line + "\"}";
-			newJson += "\"download_url\": \"" + imagesURL + "images/" + line + "\"}";
+			newJson += "\"download_url\": \"" + imagesURL + line.trim() + "\"}";
 		} else
 		{
 			// Not last item, include comma
 			newJson += "{\"name\": \"" + line + "\",";
 			newJson += "\"viewed\": false,";
 			//newJson += "\"download_url\": \"images/" + line + "\"},";
-			newJson += "\"download_url\": \"" + imagesURL + "images/" + line + "\"},";
+			newJson += "\"download_url\": \"" + imagesURL + line.trim() + "\"},";
 		}
 	});
 
