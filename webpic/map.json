@@ -14,6 +14,12 @@
     },
     {
         "description": "",
+        "title": "Name",
+        "label": "Name",
+        "name": "entry.337019434"
+    },
+    {
+        "description": "",
         "title": "Shark_Bite_Type",
         "label": "Shark Bite Type",
         "name": "entry.1234232450"
