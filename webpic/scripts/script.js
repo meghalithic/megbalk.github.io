@@ -9,8 +9,7 @@
 
 var imagesURL = "https://ben.weber.id.au/bitephotos/";
 
-// No need to change the stuff below this line. Maybe.
-var canvas = this.__canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
+var canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
 var images;
 
 fabric.Object.prototype.hasControls = false;
@@ -22,22 +21,16 @@ var trigger = 0;
 var isDown = false;
 var isSet = [];
 var img;
-
-var distances = [];
-var pointSet = [];
-var textSet = [];
-var staticx = [];
-var staticy = [];
+var currentImage;
 
 var activeColor = '#ff8100';
 var inactiveColor = '#ffcc98';
 var textColor = '#FFFFFF';
 
 var pointer;
-var isMag = false;
 var mag;
-var magSpotNew;
-var magSpotOld;
+var center;
+var panning = false;
 
 var userName = 'NA';
 
@@ -82,6 +75,7 @@ function loadFirstImage(responseText)
 	imageToLoad = images.find(getNextImage);
 	imgURL = imageToLoad.download_url;
 	imgFileName = imageToLoad.name;
+	bgimg = imgURL;
 
 	loadImageToCanvas(imgURL);
 
@@ -96,7 +90,7 @@ function loadFirstImage(responseText)
 // Load image in to canvas and display
 function loadImageToCanvas(imageURL)
 {
-	var center = canvas.getCenter();
+	center = canvas.getCenter();
 
 	fabric.Image.fromURL(imageURL, function (img)
 	{
@@ -112,6 +106,8 @@ function loadImageToCanvas(imageURL)
 		});
 
 		canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+
+		currentImage = img;
 	});
 }
 
@@ -154,12 +150,32 @@ function loadImage()
 	return true;
 }
 
+canvas.on('mouse:up', function (e) {
+	panning = false;
+});
+
+canvas.on('mouse:down', function (e) {
+    panning = true;
+});
+canvas.on('mouse:move', function (e) {
+    if (panning && e && e.e) {
+        var units = 10;
+        var delta = new fabric.Point(e.e.movementX, e.e.movementY);
+        canvas.relativePan(delta);
+    }
+});
+
+// Catch zoom keypresses
+$(function(){
+
+});
+
 window.onload = function()
 {
 	// Handle clicking the radio buttons
 	$(document).ready(function(){
 		$('input[type=radio]').click(function(){
-			if (document.querySelector('input[name="Shark_Bite_Type"]:checked').value == "DraggedTooth")
+			if($('input[name="Shark_Bite_Type"]:checked').val() == "DraggedTooth")
 			{
 				$('#draggedToothType').show();
 			}
@@ -169,46 +185,17 @@ window.onload = function()
 			}
 			});
 	});
-		
-	getImageListAndLoadFirstImage();
-	
-	// Catch keypresses
-	$("body").on("keydown", function (e)
-	{
-		if(e.keyCode == 13 && isSet[trigger])
-		{
-			nextstep();
-		} else if(e.keyCode > 48 && e.keyCode < 58)
-		{
-			if(!isMag)
-			{
-				mag = e.keyCode - 48;
-				mag = (mag == 1) ? 10 : mag;
-				
-				addMag();
-				
-				isMag = true;
-			}
-	}
-	});
 
-	$("body").on("keyup", function (e) {
-		if(isMag){
-			canvas.remove(magSpotNew);
-			isMag = false;
+	$(document).on('keypress', function(e){
+		console.log("keypress");
+		if(e.keyCode > 48 && e.keyCode < 58)
+		{
+			mag = e.keyCode - 48;
+			canvas.setZoom(mag);
 		}
-		
-	});
-
-	var zoomText = new fabric.Text("Hold 1-9 to zoom in.", { 
-					fill: 'red',
-					fontSize: 12,
-					left: 485,
-					top: 485,
-					lockMovementX: true,
-					lockMovementY: true
-				});
-	canvas.add(zoomText);
+	});	
+	
+	getImageListAndLoadFirstImage();
 	
 	$.when($.getJSON("map.json", function(json) {
 		map = unnest(json,false);
@@ -249,24 +236,33 @@ function prevstep()
 function nextstep()
 {
 	// Validate form
-
+	// Assumes image is always at index 0, not ideal
 	document.querySelector('input[name = "' + map[0].name + '"]').value = document.querySelector('input[name="' + map[0].title + '"]').value || "Unknown image";
 
 	for(var i=1; i<map.length; i++)
 	{
-		value1 = $('input[name="' + map[i].title + '"]:checked').val() || "No response provided";
-		$('input[name="' + map[i].name + '"]').val(value1);
-		//document.querySelector('input[name = "' + map[i].name + '"]').value = value1;
-		$('input[name=' + map[i].title + ']').attr('checked',false);
-
+		if (map[i].title == "Name")
+		{
+			// Bit dirty, name isn't a radio button
+			document.querySelector('input[name = "' + map[i].name + '"]').value = document.querySelector('input[name="' + map[i].title + '"]').value || "Unknown name";
+		} else 
+		{
+			value1 = $('input[name="' + map[i].title + '"]:checked').val() || "No response provided";
+			$('input[name="' + map[i].name + '"]').val(value1);
+			//document.querySelector('input[name = "' + map[i].name + '"]').value = value1;
+			$('input[name=' + map[i].title + ']').attr('checked',false);
+		}
 	};
+
+	$('#draggedToothType').hide();
 
 	document.measurements.submit();
 
 	nextImage = images.find(getNextImage);
 
 	loadImageToCanvas(nextImage.download_url);	
-	document.querySelector('input[name = "image"]').value = nextImage.name;
+	document.querySelector('input[name = "Image"]').value = nextImage.name;
+	canvas.setViewportTransform([1,0,0,1,0,0]);
 
 	next = document.getElementById('next');
 	next.disabled = (images.find(hasNextImage)) ? false : true;
@@ -305,60 +301,6 @@ function startOver()
 	trigger = 0;
 	isSet = [];
 	document.getElementsByClassName('ss-q-short').value = "";
-}
-
-function removeChildren(trigger){
-	for(var i=0; i<mapBuild.length; i++){
-		if(mapBuild[i].parent == mapBuild[trigger].name){
-			canvas.remove(pointSet[i]);
-			canvas.remove(textSet[i]);
-			isSet[i] = false;
-		}
-	}
-}
-
-// Add or remove magnification
-function addMag(e)
-{
-	var center = canvas.getCenter();
-	img = canvas.getActiveObject(); 
-
-	pointer = canvas.getPointer();
-
-	//fabric.Image.fromURL('images/' + bgimg,function(img)
-	//{
-		var offsetX = (pointer.x-center.left)*mag;
-		var offsetY = (pointer.y-center.top)*mag;
-
-		scale = Math.min((canvas.height - 10) / img.getHeight(), (canvas.width - 10) / img.getWidth());
-
-		img.set({
-			scaleX:scale*mag,
-			scaleY:scale*mag,
-			top: center.top-offsetY+(pointer.y-center.top),
-			left: center.left-offsetX+(pointer.x-center.left),
-			originX: 'center',
-			originY: 'center',
-			lockMovementX: true,
-			lockMovementY: true,
-			clipTo: function (ctx) 
-			{
-				ctx.save();
-				ctx.setTransform(1,0,0,1,0,0);
-				ctx.arc(pointer.x,pointer.y, 70, 0, Math.PI * 2);
-				ctx.restore();
-			}
-			});
-
-		magSpotNew = img;
-
-		canvas.add(magSpotNew);
-		canvas.remove(magSpotOld); // makes the movement smoother
-		canvas.sendToBack(magSpotNew);
-
-		magSpotOld = magSpotNew;
-
-	//});
 }
 
 /* build structural objects */
