@@ -1,20 +1,11 @@
 /*
- * URL for location where the script is being run
- * 
- * GitHub example - https://vk4ut.github.io/webpic/
- * Local PC - file:///C:/Users/Ben/Documents/GitHub/vk4ut.github.io/webpic/
+ * URL for image storage
  */ 
-
-//fetch('').then(function(response)
 
 var imagesURL = "https://ben.weber.id.au/bitephotos/";
 
 var canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
 var images;
-
-fabric.Object.prototype.hasControls = false;
-fabric.Object.prototype.hasBorders = false;
-
 var bgimg;
 var scale;
 var trigger = 0;
@@ -22,6 +13,7 @@ var isDown = false;
 var isSet = [];
 var img;
 var currentImage;
+var angle = 0;
 
 var activeColor = '#ff8100';
 var inactiveColor = '#ffcc98';
@@ -49,9 +41,11 @@ function loadFirstImage(responseText)
 	// Quick and dirty JSON build
 	
 	const lines = responseText.split(/\r\n|\n/);
+	shuffledLines = shuffle(lines);
+
 	newJson = "[";
 
-	lines.forEach((line, index, array) => {
+	shuffledLines.forEach((line, index, array) => {
 		if (index === array.length - 1)
 		{ 
 			// Last item, don't include comma
@@ -165,10 +159,13 @@ canvas.on('mouse:move', function (e) {
     }
 });
 
-// Catch zoom keypresses
-$(function(){
+function rotate()
+{
+	angle += 90;
 
-});
+	canvas.backgroundImage.setAngle(angle);
+	canvas.renderAll();
+}
 
 window.onload = function()
 {
@@ -328,3 +325,22 @@ function renderButton()
 		'onsuccess': onSuccess
 	});
 };
+
+function shuffle(array) {
+	var currentIndex = array.length, temporaryValue, randomIndex;
+  
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+  
+	  // Pick a remaining element...
+	  randomIndex = Math.floor(Math.random() * currentIndex);
+	  currentIndex -= 1;
+  
+	  // And swap it with the current element.
+	  temporaryValue = array[currentIndex];
+	  array[currentIndex] = array[randomIndex];
+	  array[randomIndex] = temporaryValue;
+	}
+  
+	return array;
+  }
