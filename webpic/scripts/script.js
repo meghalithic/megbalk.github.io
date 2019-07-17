@@ -159,39 +159,38 @@ canvas.on('mouse:move', function (e) {
     }
 });
 
-function rotate()
-{
-	angle += 90;
+$(document).on('keypress', function(e){
+	console.log("keypress");
+	if(e.keyCode > 48 && e.keyCode < 58)
+	{
+		mag = e.keyCode - 48;
+		canvas.setZoom(mag);
+	}
+});	
 
-	canvas.backgroundImage.setAngle(angle);
-	canvas.renderAll();
-}
+// Handle clicking the radio buttons
+$(document).ready(function(){
+	$('input[type=radio]').click(function(){
+		if($('input[name="Shark_Bite_Type"]:checked').val() == "DraggedTooth")
+		{
+			$('#draggedToothType').show();
+		}
+			else
+		{
+		$('#draggedToothType').hide();
+		}
+		});
+});
 
 window.onload = function()
 {
-	// Handle clicking the radio buttons
-	$(document).ready(function(){
-		$('input[type=radio]').click(function(){
-			if($('input[name="Shark_Bite_Type"]:checked').val() == "DraggedTooth")
-			{
-				$('#draggedToothType').show();
-			}
-				else
-			{
-			$('#draggedToothType').hide();
-			}
-			});
-	});
+	enterer = prompt("What's your name?");
 
-	$(document).on('keypress', function(e){
-		console.log("keypress");
-		if(e.keyCode > 48 && e.keyCode < 58)
-		{
-			mag = e.keyCode - 48;
-			canvas.setZoom(mag);
-		}
-	});	
-	
+	$('#signedIn').css('visibility','visible');
+	$('#signedIn').append('<p> Reviewing as: ' + enterer + '</p>');
+
+	document.querySelector('input[name = "Name"]').value = enterer;
+
 	getImageListAndLoadFirstImage();
 	
 	$.when($.getJSON("map.json", function(json) {
@@ -202,13 +201,6 @@ window.onload = function()
 	 	function(){
 			document.title = pageName;
 			$('h1').append('<a href="/">' + pageName + '</a>');
-
-			enterer = prompt("What's your name?");
-
-			$('#signedIn').css('visibility','visible');
-			$('#signedIn').append('<p> Reviewing as: ' + enterer + '</p>');
-
-			document.querySelector('input[name = "Name"]').value = enterer;
 
 			for(var i=0; i<map.length; i++){
 				$('#measurements').append('<input type="text" name="' + map[i].name + '" value="" class="ss-q-short" dir="auto" aria-label="' + map[i].label + '" title="">')
@@ -221,8 +213,6 @@ window.onload = function()
 			$('#panel2').html('<p>' + contact + '</p>');
 		}
 	)
-	
-	
 }
 
 function prevstep()
@@ -325,6 +315,14 @@ function renderButton()
 		'onsuccess': onSuccess
 	});
 };
+
+function rotate()
+{
+	angle += 90;
+
+	canvas.backgroundImage.setAngle(angle);
+	canvas.renderAll();
+}
 
 function shuffle(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;
