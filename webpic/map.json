@@ -20,6 +20,12 @@
     },
     {
         "description": "",
+        "title": "Comments",
+        "label": "Comments",
+        "name": "entry.1527782127"
+    },
+    {
+        "description": "",
         "title": "Shark_Bite_Type",
         "label": "Shark Bite Type",
         "name": "entry.1234232450"

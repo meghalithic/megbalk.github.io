@@ -2,7 +2,7 @@
  * URL for image storage
  */ 
 
-var imagesURL = "https://ben.weber.id.au/bitephotos/";
+var imagesURL = "http://bites.weber.id.au/";
 
 var canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
 var images;
@@ -232,6 +232,12 @@ function nextstep()
 		{
 			// Bit dirty, name isn't a radio button
 			document.querySelector('input[name = "' + map[i].name + '"]').value = document.querySelector('input[name="' + map[i].title + '"]').value || "Unknown name";
+		} 
+		else if (map[i].title == "Comments")
+		{
+			// Bit dirty, name isn't a radio button
+			document.querySelector('input[name = "' + map[i].name + '"]').value = document.querySelector('textarea[name="' + map[i].title + '"]').value || "Unknown name";
+			document.querySelector('textarea[name="' + map[i].title + '"]').value = "";
 		} else 
 		{
 			value1 = $('input[name="' + map[i].title + '"]:checked').val() || "No response provided";
