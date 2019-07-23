@@ -2,7 +2,7 @@
  * URL for image storage
  */ 
 
-var imagesURL = "http://bites.weber.id.au/";
+var imagesURL = "https://bites.weber.id.au/";
 
 var canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
 var images;
