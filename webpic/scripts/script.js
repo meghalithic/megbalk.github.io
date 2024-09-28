@@ -29,7 +29,7 @@ var userName = 'NA';
 // Get list of images and loads first one 
 function getImageListAndLoadFirstImage()
 {
-	fetch("https://megbalk.github.io/webpic/images.list")
+	fetch("https://meghalithic.github.io/megbalk.github.io/webpic/images.list")
 	.then((response) => response.text())
 	.then((responseText) => {
 		loadFirstImage(responseText)
