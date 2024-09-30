@@ -3,7 +3,7 @@
  */ 
 
 var imagesURL = "https://meghalithic.github.io/megbalk.github.io/webpic/images/";
-
+// Another comment
 var canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
 var images;
 var bgimg;
