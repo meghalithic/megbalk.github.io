@@ -3,8 +3,8 @@
  */ 
 
 // var imagesURL = "https://meghalithic.github.io/megbalk.github.io/webpic/images/";
-// var imagesURL = "https://github.com/meghalithic/megbalk.github.io/tree/master/webpic/images/";
-// no url??
+var imagesURL = "images/";
+
 // Another comment 2
 var canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
 var images;
@@ -31,7 +31,8 @@ var userName = 'NA';
 // Get list of images and loads first one 
 function getImageListAndLoadFirstImage()
 {
-	fetch("https://meghalithic.github.io/megbalk.github.io/webpic/images.list")
+	//fetch("https://meghalithic.github.io/megbalk.github.io/webpic/images.list")
+	fetch("images.list")
 	.then((response) => response.text())
 	.then((responseText) => {
 		loadFirstImage(responseText)
