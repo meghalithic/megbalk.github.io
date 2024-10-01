@@ -2,8 +2,8 @@
  * URL for image storage (https://bites.weber.id.au/)
  */ 
 
-// var imagesURL = "https://meghalithic.github.io/megbalk.github.io/webpic/images/";
-var imagesURL = "images/";
+var imagesURL = "https://meghalithic.github.io/megbalk.github.io/webpic/images/";
+// var imagesURL = "images/";
 
 // Another comment 2
 var canvas = new fabric.Canvas('canvas', {selection: false, hoverCursor:'default'});
